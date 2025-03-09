@@ -86,7 +86,7 @@ public class PestFarmer implements IFeature {
 
     @Override
     public boolean shouldCheckForFailsafes() {
-        return (mainState != MainState.RETURN || returnState.ordinal() > 7) && (state != State.WAITING_FOR_WARP);
+        return mainState != MainState.RETURN && state != State.WAITING_FOR_WARP;
     }
 
     @Override

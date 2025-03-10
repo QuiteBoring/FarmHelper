@@ -147,7 +147,7 @@ public class BPSTracker implements IFeature {
                 || MacroHandler.getInstance().isStartingUp()
                 || !checkForBPS(MacroHandler.getInstance().getMacro().getCurrentState())
                 || MacroHandler.getInstance().getCrop() == FarmHelperConfig.CropEnum.NONE
-                || PestFarmer.isRunning();
+                || PestFarmer.instance.isRunning();
     }
 
     public float getBPSFloat() {

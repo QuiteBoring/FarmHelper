@@ -152,7 +152,18 @@ public class PestFarmer implements IFeature {
             return;
         }
 
-        if (wasSpawnChanged && FarmHelperConfig.pestFarmerKillPests && PlayerUtils.isStandingOnRewarpLocation()) {
+        if (FarmHelperConfig.pestFarmerKillPests && GameStateHandler.getInstance().getPestsCount() >= FarmHelperConfig.pestFarmerStartKillAt) {
+            LogUtils.sendDebug("Swapping to " + FarmHelperConfig.pestFarmingSet0Slot);
+            swapTo = FarmHelperConfig.pestFarmingSet0Slot;
+            if (FarmHelperConfig.pestFarmingSwapEq) {
+                equipments = Arrays.asList(FarmHelperConfig.pestFarmingEq0.split("\\|"));
+            }
+            mainState = MainState.SWAP_N_START;
+            start();
+            return;
+        }
+
+        if (FarmHelperConfig.pestFarmerKillPests && PlayerUtils.isStandingOnRewarpLocation()) {
             mainState = MainState.RETURN;
             start();
             return;
@@ -242,7 +253,7 @@ public class PestFarmer implements IFeature {
                     if (AutoWardrobe.instance.isRunning()) {
                         return;
                     }
-                    if (pestSpawned && FarmHelperConfig.pestFarmerKillPests && GameStateHandler.getInstance().getPestsCount() >= FarmHelperConfig.pestFarmerStartKillAt) {
+                    if (FarmHelperConfig.pestFarmerKillPests && GameStateHandler.getInstance().getPestsCount() >= FarmHelperConfig.pestFarmerStartKillAt) {
                         setState(State.SETTING_SPAWN, 0);
                     } else {
                         stop();
